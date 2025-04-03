@@ -20,6 +20,8 @@ library(baguette)
 library(dplyr)
 library(readr)
 library(purrr)
+library(ggplot2)
+library(patchwork)
 ```
 
 ```{r}
@@ -58,6 +60,70 @@ camels <-powerjoin::power_full_join(camels ,by = 'gauge_id')
 
 ```{r}
 #Question 1 ANSWER:According to the CAMELS dataset documentation, zero_q_freq represents the fraction of time during which streamflow is zero for a given basin or site. This is important for understanding the behavior of the streamflow over time and can be used to identify basins that experience dry conditions or intermittent flow.
+
+```
+
+```{r}
+ggplot(data = camels, aes(x = gauge_lon, y = gauge_lat)) +
+  borders("state", colour = "gray50") +
+  geom_point(aes(color = q_mean)) +
+  scale_color_gradient(low = "pink", high = "dodgerblue") +
+  ggthemes::theme_map()
+```
+```{r}
+str(camels)
+```
+
+```{r}
+#Question2 
+# Create map for aridity
+map_aridity <- ggplot(camels, aes(x = gauge_lon, y = gauge_lat, color = aridity)) +
+  geom_point() +
+  scale_color_viridis_c() + # Viridis scale for continuous data
+  labs(title = "Aridity by Site", color = "Aridity") +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  theme(axis.title = element_blank(), axis.text = element_blank(), axis.ticks = element_blank())
+
+```
+
+```{r}
+# Create map for p_mean
+map_pmean <- ggplot(camels, aes(x = gauge_lon, y = gauge_lat, color = p_mean)) +
+  geom_point() +
+  scale_color_viridis_c() + # Viridis scale for continuous data
+  labs(title = "Mean Precipitation by Site", color = "Mean Precipitation") +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  theme(axis.title = element_blank(), axis.text = element_blank(), axis.ticks = element_blank())
+
+```
+
+```{r}
+# Combine the two maps into one figure
+combined_map <- map_aridity + map_pmean + plot_layout(ncol = 2)
+
+# Display the combined maps
+print(combined_map)
+
+```
+
+```{r}
+# Reshape data to long format
+camels_long <- camels %>%
+  gather(key = "parameter", value = "value", aridity, p_mean)
+
+# Create facet map
+map_facet <- ggplot(camels_long, aes(x = gauge_lon, y = gauge_lat, color = value)) +
+  geom_point() +
+  scale_color_viridis_c() +
+  labs(color = "Value") +
+  facet_wrap(~parameter, scales = "free") + 
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+# Display the facet map
+print(map_facet)
 
 ```
 
