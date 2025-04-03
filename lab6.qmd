@@ -23,6 +23,12 @@ library(purrr)
 ```
 
 ```{r}
+download.file('https://gdex.ucar.edu/dataset/camels/file/camels_attributes_v2.0.pdf', 
+              'data/camels_attributes_v2.0.pdf')
+
+```
+
+```{r}
 root  <- 'https://gdex.ucar.edu/dataset/camels/file'
 ```
 
@@ -38,15 +44,20 @@ local_files   <- glue('data/camels_{types}.txt')
 ```
 
 ```{r}
-walk2(remote_files, local_files, download.file, quiet = TRUE)
+purrr::walk2(remote_files, local_files, download.file, quiet = TRUE)
 ```
 
 ```{r}
 # Read and merge data
-camels <- map(local_files, read_delim, show_col_types = FALSE) 
+camels <-purrr::map(local_files, read_delim, show_col_types = FALSE) 
 ```
 
 ```{r}
-camels <- power_full_join(camels ,by = 'gauge_id')
+camels <-powerjoin::power_full_join(camels ,by = 'gauge_id')
+```
+
+```{r}
+#Question 1 ANSWER:According to the CAMELS dataset documentation, zero_q_freq represents the fraction of time during which streamflow is zero for a given basin or site. This is important for understanding the behavior of the streamflow over time and can be used to identify basins that experience dry conditions or intermittent flow.
+
 ```
 
