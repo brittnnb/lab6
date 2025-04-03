@@ -1,6 +1,6 @@
 ---
 title: "lab6"
-output: html_document
+output: html
   output-dir: docs
 
 date: "2025-04-03"
