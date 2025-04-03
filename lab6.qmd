@@ -1,0 +1,18 @@
+---
+title: 'Lab 6: Machine Learning in Hydrology'
+author: 'Brittany Bobb'
+date: '2025-04-03'
+format: 
+    html:
+      self-contained: true
+execute:
+  echo: true
+editor: source
+---
+
+```{r}
+library(tidymodels)
+library(tidyverse)
+library(ggplot2)
+```
+
