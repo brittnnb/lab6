@@ -1,8 +1,8 @@
 ---
-title: "lab6"
-output: html
+project:
+  title: "lab6"
   output-dir: docs
-
+  type: html
 date: "2025-04-03"
 ---
 
