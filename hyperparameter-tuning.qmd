@@ -29,6 +29,15 @@ library(tune)
 library(keras)
 library(dials)
 ```
+```{r}
+#
+#
+#
+###LAB 8 IS NEAR THE BOTTOM
+#
+#
+#
+```
 
 ```{r}
 download.file('https://gdex.ucar.edu/dataset/camels/file/camels_attributes_v2.0.pdf', 
