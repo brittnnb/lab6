@@ -1,0 +1,17 @@
+---
+project:
+  title: 'Lab 6: Machine Learning in Hydrology'
+  output-dir: docs/subdir
+  type: website
+format: 
+  html:
+    self-contained: true
+    output-file: docs/subdir/index.html
+---
+# Welcome to the Lab 6 Website
+
+This website contains the following sections:
+
+- [Lab 6](lab6/index.html)
+- [Hyperparameter Tuning](hyperparameter-tuning/index.html)
+---
